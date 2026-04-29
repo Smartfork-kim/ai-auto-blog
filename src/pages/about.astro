@@ -2,25 +2,56 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={`About | ${SITE_TITLE}`} description="AI 자동화 노트 소개" />
+		<BaseHead title={`About | ${SITE_TITLE}`} description="AI 자동화 노트 소개와 운영 방향" />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>About</h1>
-			<p>
-				AI 자동화 노트는 AI 도구, 업무 자동화, 1인 사업 운영에 필요한 실전 지식을 정리하는 블로그입니다.
-			</p>
-			<p>
-				목표는 단순합니다. 복잡한 AI 정보를 실제로 써먹을 수 있는 방법으로 바꿔서 기록합니다.
-			</p>
+		<main class="page">
+			<section class="page-hero card">
+				<p class="badge">About</p>
+				<h1>AI 자동화 노트 소개</h1>
+				<p>{SITE_DESCRIPTION}</p>
+			</section>
+			<section class="content card">
+				<h2>운영 목적</h2>
+				<p>
+					AI 자동화 노트는 AI 도구, 업무 자동화, 블로그 자동화, 소상공인 AI 활용법을 쉽게 정리하는 정보성 블로그입니다.
+					복잡한 기술 정보를 실제 업무와 사업 운영에 바로 적용할 수 있는 형태로 설명하는 것을 목표로 합니다.
+				</p>
+				<h2>다루는 주제</h2>
+				<ul>
+					<li>ChatGPT 등 AI 도구 활용법</li>
+					<li>반복 업무를 줄이는 자동화 설계</li>
+					<li>소상공인과 1인 사업자를 위한 AI 활용 아이디어</li>
+					<li>GitHub Pages 기반 블로그 운영과 콘텐츠 자동화</li>
+					<li>애드센스와 수익형 콘텐츠 운영 기초</li>
+				</ul>
+				<h2>콘텐츠 원칙</h2>
+				<p>
+					이 블로그는 독자가 실제로 실행할 수 있는 정보를 우선합니다. AI를 활용해 초안을 만들 수 있지만,
+					발행 전에는 사람이 내용의 흐름, 표현, 실용성을 검토하는 방식을 지향합니다.
+				</p>
+				<h2>문의</h2>
+				<p>
+					블로그 관련 문의는 <a href="../contact/">Contact 페이지</a>를 통해 남겨주세요.
+				</p>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.page { width: min(900px, calc(100% - 2rem)); }
+	.page-hero, .content { padding: clamp(1.4rem, 4vw, 2.5rem); }
+	.page-hero { margin-bottom: 1rem; }
+	.page-hero p:last-child, .content p, .content li { color: rgb(var(--gray)); }
+	.content h2 { margin-top: 2rem; font-size: 1.7rem; }
+	.content h2:first-child { margin-top: 0; }
+</style>
