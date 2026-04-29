@@ -24,7 +24,7 @@ if (existsSync(file)) {
   process.exit(1);
 }
 
-const content = `---\ntitle: '${title.replace(/'/g, "’")}'\ndescription: '이 글의 핵심 설명을 한 문장으로 작성하세요.'\npubDate: '${today}'\n---\n\n## 개요\n\n여기에 본문을 작성하세요.\n\n## 핵심 내용\n\n- 포인트 1\n- 포인트 2\n- 포인트 3\n\n## 마무리\n\n정리 문장을 작성하세요.\n`;
+const content = `---\ntitle: '${title.replace(/'/g, "’")}'\ndescription: '이 글의 핵심 설명을 한 문장으로 작성하세요.'\npubDate: '${today}'\ncategory: 'AI 도구 사용법'\ntags: ['AI', '자동화']\n---\n\n## 개요\n\n여기에 본문을 작성하세요.\n\n## 핵심 내용\n\n- 포인트 1\n- 포인트 2\n- 포인트 3\n\n## 마무리\n\n정리 문장을 작성하세요.\n`;
 
 await mkdir(path.dirname(file), { recursive: true });
 await writeFile(file, content, 'utf8');
