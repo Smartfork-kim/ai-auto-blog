@@ -14,6 +14,8 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const base = import.meta.env.BASE_URL;
+const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT;
 
 const { title, description, image = FallbackImage } = Astro.props;
 ---
@@ -21,8 +23,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+<link rel="icon" href={`${base}favicon.ico`} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"
@@ -31,6 +33,13 @@ const { title, description, image = FallbackImage } = Astro.props;
 	href={new URL('rss.xml', Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+{adsenseClient && (
+	<script
+		async
+		src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+		crossorigin="anonymous"
+	></script>
+)}
 
 <Font cssVariable="--font-atkinson" preload />
 

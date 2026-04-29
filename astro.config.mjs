@@ -4,9 +4,13 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
+const site = process.env.SITE_URL ?? 'https://example.com';
+const base = process.env.BASE_PATH ?? '/';
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	site,
+	base,
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{

@@ -3,47 +3,58 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const blogUrl = `${import.meta.env.BASE_URL}blog`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<p class="eyebrow">AI · 자동화 · 수익형 블로그</p>
+				<h1>{SITE_TITLE}</h1>
+				<p class="lead">{SITE_DESCRIPTION}</p>
+				<a class="cta" href={blogUrl}>글 보러가기</a>
+			</section>
+			<section>
+				<h2>운영 방향</h2>
+				<ul>
+					<li>AI로 초안을 만들고 사람이 검수해 품질을 지킵니다.</li>
+					<li>Markdown 글 파일을 GitHub에 올리면 자동으로 배포됩니다.</li>
+					<li>초기에는 검색 유입과 애드센스 승인에 유리한 정보성 글을 쌓습니다.</li>
+				</ul>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.hero {
+		padding: 4rem 0 3rem;
+	}
+	.eyebrow {
+		font-weight: 700;
+		color: rgb(var(--accent));
+		margin-bottom: 0.5rem;
+	}
+	.lead {
+		font-size: 1.25rem;
+		line-height: 1.7;
+	}
+	.cta {
+		display: inline-block;
+		margin-top: 1rem;
+		padding: 0.75rem 1rem;
+		border-radius: 0.75rem;
+		background: rgb(var(--accent));
+		color: white;
+		font-weight: 700;
+		text-decoration: none;
+	}
+</style>
