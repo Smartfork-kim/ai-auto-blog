@@ -9,7 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const url = (path: string) => `${base}${path.replace(/^\//, '')}`;
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const featured = posts[0];
+const recentPosts = posts.slice(0, 6);
 const categories = [
 	{ name: 'AI 도구 사용법', desc: 'ChatGPT, Claude, 이미지 생성, 생산성 도구 실전 활용' },
 	{ name: '업무 자동화', desc: '반복 업무를 줄이는 워크플로우와 자동화 설계' },
@@ -60,19 +60,22 @@ const categories = [
 				))}
 			</section>
 
-			<section class="latest card">
-				<div>
-					<p class="badge">Latest post</p>
-					<h2>최근 글</h2>
-				</div>
-				{featured && (
-					<a class="featured-link" href={url(`/blog/${featured.id}/`)}>
-						<span>{featured.data.category}</span>
-						<h3>{featured.data.title}</h3>
-						<p>{featured.data.description}</p>
-						<small><FormattedDate date={featured.data.pubDate} /></small>
+			<section class="section-head latest-head">
+				<p class="badge">Latest posts</p>
+				<h2>최근 올라온 글</h2>
+				<p>홈 화면에서도 새로 발행된 글을 바로 확인할 수 있게 최신 글 6개를 보여줍니다.</p>
+			</section>
+			<section class="latest-grid">
+				{recentPosts.map((post) => (
+					<a class="post-card card" href={url(`/blog/${post.id}/`)}>
+						<div class="post-meta">
+							<span>{post.data.category}</span>
+							<small><FormattedDate date={post.data.pubDate} /></small>
+						</div>
+						<h3>{post.data.title}</h3>
+						<p>{post.data.description}</p>
 					</a>
-				)}
+				))}
 			</section>
 		</main>
 		<Footer />
@@ -195,40 +198,59 @@ const categories = [
 		color: rgb(var(--gray));
 		font-size: 0.96rem;
 	}
-	.latest {
+	.latest-head {
+		margin-top: 2rem;
+	}
+	.latest-grid {
 		display: grid;
-		grid-template-columns: 0.8fr 1.2fr;
+		grid-template-columns: repeat(3, 1fr);
 		gap: 1rem;
-		align-items: center;
-		padding: 1.5rem;
 	}
-	.featured-link {
-		display: block;
-		padding: 1.4rem;
-		border-radius: 22px;
-		background: linear-gradient(135deg, rgba(var(--accent), 0.1), rgba(var(--accent-2), 0.1));
+	.post-card {
+		display: flex;
+		min-height: 260px;
+		flex-direction: column;
+		padding: 1.35rem;
+		color: inherit;
 		text-decoration: none;
+		transition: transform 0.18s ease, box-shadow 0.18s ease;
 	}
-	.featured-link span {
-		color: rgb(var(--accent));
-		font-size: 0.9rem;
+	.post-card:hover {
+		transform: translateY(-5px);
+		box-shadow: var(--shadow);
+	}
+	.post-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+	}
+	.post-meta span {
+		padding: 0.35rem 0.6rem;
+		border-radius: 999px;
+		background: rgba(var(--accent-2), 0.1);
+		color: rgb(var(--accent-2));
+		font-size: 0.78rem;
 		font-weight: 900;
 	}
-	.featured-link h3 {
-		margin-top: 0.45rem;
-	}
-	.featured-link p {
+	.post-meta small {
 		color: rgb(var(--gray));
+		font-size: 0.78rem;
 	}
-	.featured-link small {
+	.post-card h3 {
+		font-size: 1.45rem;
+	}
+	.post-card p {
 		color: rgb(var(--gray));
+		font-size: 0.96rem;
 	}
 	@media (max-width: 900px) {
-		.hero,
-		.latest {
+		.hero {
 			grid-template-columns: 1fr;
 		}
-		.category-grid {
+		.category-grid,
+		.latest-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
@@ -236,7 +258,8 @@ const categories = [
 		.hero {
 			padding-top: 2rem;
 		}
-		.category-grid {
+		.category-grid,
+		.latest-grid {
 			grid-template-columns: 1fr;
 		}
 	}
