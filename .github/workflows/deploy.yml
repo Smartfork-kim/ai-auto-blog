@@ -31,6 +31,11 @@ jobs:
         env:
           SITE_URL: https://${{ github.repository_owner }}.github.io
           BASE_PATH: /${{ github.event.repository.name }}
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          PUBLIC_ADSENSE_CLIENT: ${{ vars.PUBLIC_ADSENSE_CLIENT }}
+          PUBLIC_ADSENSE_DISPLAY_SLOT: ${{ vars.PUBLIC_ADSENSE_DISPLAY_SLOT }}
+          PUBLIC_ADSENSE_IN_ARTICLE_SLOT: ${{ vars.PUBLIC_ADSENSE_IN_ARTICLE_SLOT }}
+          PUBLIC_ADSENSE_MULTIPLEX_SLOT: ${{ vars.PUBLIC_ADSENSE_MULTIPLEX_SLOT }}
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
