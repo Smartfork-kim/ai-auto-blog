@@ -14,41 +14,48 @@ const multiplexSlot = import.meta.env.PUBLIC_ADSENSE_MULTIPLEX_SLOT;
 const { label = 'Advertisement', layout = 'display', slot, class: className = '' } = Astro.props;
 const selectedSlot = slot ?? (layout === 'in-article' ? inArticleSlot : layout === 'multiplex' ? multiplexSlot : defaultDisplaySlot);
 const isEnabled = Boolean(adsenseClient && selectedSlot);
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
-{isEnabled && (
-	<aside class:list={['ad-box', `ad-box-${layout}`, className]} aria-label={label}>
-		<span>{label}</span>
-		{layout === 'in-article' ? (
-			<ins
-				class="adsbygoogle"
-				style="display:block; text-align:center;"
-				data-ad-layout="in-article"
-				data-ad-format="fluid"
-				data-ad-client={adsenseClient}
-				data-ad-slot={selectedSlot}
-			></ins>
-		) : layout === 'multiplex' ? (
-			<ins
-				class="adsbygoogle"
-				style="display:block;"
-				data-ad-format="autorelaxed"
-				data-ad-client={adsenseClient}
-				data-ad-slot={selectedSlot}
-			></ins>
-		) : (
-			<ins
-				class="adsbygoogle"
-				style="display:block;"
-				data-ad-client={adsenseClient}
-				data-ad-slot={selectedSlot}
-				data-ad-format="auto"
-				data-full-width-responsive="true"
-			></ins>
-		)}
-		<script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-	</aside>
-)}
+<aside class:list={['ad-box', `ad-box-${layout}`, className]} aria-label={label}>
+	<span>{isEnabled ? label : '광고 예시 영역'}</span>
+	{isEnabled ? (
+		<>
+			{layout === 'in-article' ? (
+				<ins
+					class="adsbygoogle"
+					style="display:block; text-align:center;"
+					data-ad-layout="in-article"
+					data-ad-format="fluid"
+					data-ad-client={adsenseClient}
+					data-ad-slot={selectedSlot}
+				></ins>
+			) : layout === 'multiplex' ? (
+				<ins
+					class="adsbygoogle"
+					style="display:block;"
+					data-ad-format="autorelaxed"
+					data-ad-client={adsenseClient}
+					data-ad-slot={selectedSlot}
+				></ins>
+			) : (
+				<ins
+					class="adsbygoogle"
+					style="display:block;"
+					data-ad-client={adsenseClient}
+					data-ad-slot={selectedSlot}
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+				></ins>
+			)}
+			<script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+		</>
+	) : (
+		<div class="ad-preview">
+			<img src={`${base}ad-preview.svg`} alt="광고가 표시될 위치를 보여주는 예시 이미지" loading="lazy" />
+		</div>
+	)}
+</aside>
 
 <style>
 	.ad-box {
@@ -68,6 +75,12 @@ const isEnabled = Boolean(adsenseClient && selectedSlot);
 		letter-spacing: 0.08em;
 		text-align: center;
 		text-transform: uppercase;
+	}
+	.ad-preview img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 18px;
 	}
 	.ad-box-display {
 		min-height: 120px;
