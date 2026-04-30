@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import AdSenseAd from '../components/AdSenseAd.astro';
 
  type Props = CollectionEntry<'blog'>['data'];
 
@@ -39,9 +40,11 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 						<Image width={1120} height={560} src={heroImage} alt="" />
 					</div>
 				)}
+				<AdSenseAd layout="display" class="post-top-ad" />
 				<div class="prose card">
 					<slot />
 				</div>
+				<AdSenseAd layout="multiplex" label="Related advertisement" />
 			</article>
 		</main>
 		<Footer />
