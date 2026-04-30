@@ -18,7 +18,6 @@ const url = (path: string) => `${base}${path.replace(/^\//, '')}`;
 			<HeaderLink href={url('/about')}>About</HeaderLink>
 			<HeaderLink href={url('/contact')}>Contact</HeaderLink>
 		</div>
-		<a class="repo-link" href="https://github.com/Smartfork-kim/ai-auto-blog" target="_blank">GitHub</a>
 	</nav>
 </header>
 <style>
@@ -40,7 +39,6 @@ const url = (path: string) => `${base}${path.replace(/^\//, '')}`;
 		gap: 1rem;
 	}
 	.brand,
-	.repo-link,
 	nav a {
 		text-decoration: none;
 	}
@@ -79,23 +77,11 @@ const url = (path: string) => `${base}${path.replace(/^\//, '')}`;
 		font-size: 0.92rem;
 		font-weight: 800;
 	}
-	.repo-link {
-		padding: 0.65rem 0.95rem;
-		border-radius: 999px;
-		background: rgb(var(--black));
-		color: white;
-		font-size: 0.9rem;
-		font-weight: 800;
-		box-shadow: 0 12px 26px rgba(15, 23, 42, 0.16);
-	}
 	@media (max-width: 720px) {
 		header {
 			padding: 0.55rem 0.65rem;
 		}
 		.brand span:last-child {
-			display: none;
-		}
-		.repo-link {
 			display: none;
 		}
 		.internal-links {
