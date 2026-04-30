@@ -16,6 +16,7 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT;
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 const { title, description, image = FallbackImage } = Astro.props;
 ---
@@ -33,6 +34,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 	href={new URL(`${base}rss.xml`.replace(/^\//, ''), Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+{googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
 <style is:inline>
 	:root{--accent:79,70,229;--accent-2:14,165,233;--accent-3:16,185,129;--black:15,23,42;--gray:100,116,139;--gray-light:226,232,240;--gray-dark:30,41,59;--surface:255,255,255;--border:226,232,240;--shadow:0 24px 80px rgba(15,23,42,.10);--shadow-soft:0 14px 40px rgba(15,23,42,.08);--radius:28px}
 	*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;padding:0;background:radial-gradient(circle at top left,rgba(var(--accent-2),.18),transparent 34rem),radial-gradient(circle at top right,rgba(var(--accent),.16),transparent 32rem),linear-gradient(180deg,#f8fbff 0%,#fff 42%,#f8fafc 100%);color:rgb(var(--gray-dark));font-family:var(--font-atkinson),system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;line-height:1.75}main{width:min(1120px,calc(100% - 2rem));margin:auto;padding:3.5rem 0}h1,h2,h3,h4,h5,h6{margin:0 0 .75rem;color:rgb(var(--black));line-height:1.12;letter-spacing:-.04em}h1{font-size:clamp(2.8rem,8vw,5.6rem)}h2{font-size:clamp(2rem,4vw,3.25rem)}a{color:rgb(var(--accent))}.badge{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .75rem;border:1px solid rgba(var(--accent),.16);border-radius:999px;background:rgba(255,255,255,.72);box-shadow:0 8px 28px rgba(15,23,42,.06);color:rgb(var(--accent));font-size:.88rem;font-weight:800}.card{border:1px solid rgba(var(--border),.9);border-radius:var(--radius);background:rgba(var(--surface),.82);box-shadow:var(--shadow-soft);backdrop-filter:blur(18px)}
